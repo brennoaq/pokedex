@@ -15,19 +15,34 @@ abstract class _PokeApiStoreBase with Store {
   @observable
   PokeAPI _pokeAPI;
 
+  @observable
+  Pokemon _pokemonAtual;
+
+  @observable
+  dynamic corPokemon;
+
   @computed
   PokeAPI get pokeAPI => _pokeAPI;
+
+  @computed
+  Pokemon get pokemonAtual => _pokemonAtual;
 
   @action
   fetchPokemonList() {
     _pokeAPI = null;
-    loadPokeAPI().then((pokelist) {
-      _pokeAPI = pokelist;
+    loadPokeAPI().then((pokeList) {
+      _pokeAPI = pokeList;
     });
   }
-  @action
-  getPokemon({int index}){
+
+  Pokemon getPokemon({int index}) {
     return _pokeAPI.pokemon[index];
+  }
+
+  @action
+  setPokemonAtual({int index}) {
+    _pokemonAtual = _pokeAPI.pokemon[index];
+    corPokemon = ConstsAPI.getColorType(type: _pokemonAtual.type[0]);
   }
 
   @action
@@ -37,7 +52,7 @@ abstract class _PokeApiStoreBase with Store {
         color: Colors.transparent,
       ),
       imageUrl:
-      'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/$numero.png',
+          'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/$numero.png',
     );
   }
 

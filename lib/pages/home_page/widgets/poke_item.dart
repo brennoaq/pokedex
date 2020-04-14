@@ -26,7 +26,7 @@ class PokeItem extends StatelessWidget {
                 child: Text(
                   nome.trim(),
                   style: TextStyle(
-                      fontFamily: 'Google',
+                      fontFamily: 'Roboto',
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
