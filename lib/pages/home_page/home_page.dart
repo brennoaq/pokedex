@@ -36,11 +36,11 @@ class _HomePageState extends State<HomePage> {
         overflow: Overflow.visible,
         children: <Widget>[
           Positioned(
-            top: -(240 / 4.7),
+            top: MediaQuery.of(context).padding.top - 240 / 2.9,
             left: screenWidth - (240 / 1.6),
             child: Opacity(
               child: Image.asset(
-                ConstsApp.blackPokeball,
+                ConstsApp.whitePokeball,
                 height: 240,
                 width: 240,
               ),
@@ -90,15 +90,16 @@ class _HomePageState extends State<HomePage> {
                                             _pokemonStore.setPokemonAtual(
                                                 index: index);
                                             Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder:
-                                                      (BuildContext context) =>
-                                                          PokeDetailPage(
-                                                    index: index,
-                                                  ),
-                                                  fullscreenDialog: true,
-                                                ));
+                                              context,
+                                              MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        PokeDetailPage(
+                                                  index: index,
+                                                ),
+                                                fullscreenDialog: true,
+                                              ),
+                                            );
                                           },
                                         ),
                                       ),

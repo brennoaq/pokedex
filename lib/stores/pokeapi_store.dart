@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pokedex/consts/consts_api.dart';
+import 'package:pokedex/consts/consts_app.dart';
 import 'package:pokedex/models/pokeapi.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,6 +21,9 @@ abstract class _PokeApiStoreBase with Store {
 
   @observable
   dynamic corPokemon;
+
+  @observable
+  int posicaoAtual;
 
   @computed
   PokeAPI get pokeAPI => _pokeAPI;
@@ -42,7 +46,8 @@ abstract class _PokeApiStoreBase with Store {
   @action
   setPokemonAtual({int index}) {
     _pokemonAtual = _pokeAPI.pokemon[index];
-    corPokemon = ConstsAPI.getColorType(type: _pokemonAtual.type[0]);
+    corPokemon = ConstsApp.getColorType(type: _pokemonAtual.type[0]);
+    posicaoAtual = index;
   }
 
   @action
@@ -58,7 +63,7 @@ abstract class _PokeApiStoreBase with Store {
 
   Future<PokeAPI> loadPokeAPI() async {
     try {
-      final response = await http.get(ConstsAPI.pokeAPIURL);
+      final response = await http.get(ConstsAPI.pokeapiURL);
       var decodeJson = jsonDecode(response.body);
       return PokeAPI.fromJson(decodeJson);
     } catch (error, stacktrace) {
